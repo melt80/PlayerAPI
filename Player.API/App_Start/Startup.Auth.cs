@@ -8,8 +8,9 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Player.API.Providers;
 using Player.API.Models;
+using Player.API.Providers;
+using Player.Data;
 
 namespace Player.API
 {

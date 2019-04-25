@@ -213,13 +213,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -312,6 +312,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Player.Data\Player.Data.csproj">
+      <Project>{2652F887-B068-40BE-A9E7-84C4B12D0D71}</Project>
+      <Name>Player.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Player.Models\Player.Models.csproj">
+      <Project>{1acd48e4-9767-4daa-811c-d6b05688b569}</Project>
+      <Name>Player.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Player.Services\Player.Services.csproj">
+      <Project>{34CEA27B-84E8-4719-A65A-B2EC2B9D8B31}</Project>
+      <Name>Player.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
