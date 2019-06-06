@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
 namespace Player.API.Models
 {

@@ -13,18 +13,29 @@ namespace Player.API.Controllers
     [Authorize]
     public class PlayerController : ApiController
     {
+        private readonly Lazy<IPlayerService> _playerService;
+
+        public PlayerController()
+        {
+            _playerService = new Lazy<IPlayerService>(() =>
+                new PlayerService(Guid.Parse(User.Identity.GetUserId())));
+        }
+
+        public PlayerController(Lazy<IPlayerService> playerService)
+        {
+            _playerService = playerService;
+        }
+
         public IHttpActionResult GetAll()
         {
-            PlayerService playerService = CreatePlayerService();
-            var players = playerService.GetPlayers();
+            IEnumerable<PlayerListItem> players = _playerService.Value.GetPlayers();
             return Ok(players);
         }
 
         public IHttpActionResult Get(int id)
         {
-            PlayerService playerService = CreatePlayerService();
-            var player = playerService.GetPlayerById(id);
-            return Ok();
+            var player = _playerService.Value.GetPlayerById(id);
+            return Ok(player);
         }
 
         public IHttpActionResult Post(PlayerCreate player)
@@ -32,9 +43,7 @@ namespace Player.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var service = CreatePlayerService();
-
-            if (!service.CreatePlayer(player))
+            if (!_playerService.Value.CreatePlayer(player))
                 return InternalServerError();
 
             return Ok();
@@ -45,9 +54,7 @@ namespace Player.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var service = CreatePlayerService();
-
-            if (!service.UpdatePlayer(player))
+            if (!_playerService.Value.UpdatePlayer(player))
                 return InternalServerError();
 
             return Ok();
@@ -55,19 +62,10 @@ namespace Player.API.Controllers
 
         public IHttpActionResult Delete(int id)
         {
-            var service = CreatePlayerService();
-
-            if (!service.DeletePlayer(id))
+            if (!_playerService.Value.DeletePlayer(id))
                 return InternalServerError();
 
             return Ok();
-        }
-
-        private PlayerService CreatePlayerService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var playerService = new PlayerService(userId);
-            return playerService;
         }
     }
 }
